@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja de Cursos</title>
+  <style>
+    body {
+      background-color: rgba(151, 151, 151, 0.808);
+      font: normal 20px Arial;
+    }
+    input {
+      background-color: black;
+      color: white;
+      border-radius: 20px;
+    }
+    input:hover {
+      background-color: white;
+      color: black;
+      cursor: pointer;
+    }
+    #html { color: orangered; }
+    #css { color: blue; }
+    #js { color: yellow; }
+    li { list-style-type: none; }
+
+    #cups {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    #vip {
+      position: fixed;
+      top: 60px;
+      right: 10px;
+      background-color: gold;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="cups">CUPS: <span id="cupValor">0</span></div>
+  <div id="vipStatus"></div>
+
+  <h1>Quer fazer um CURSO?</h1>
+  <h2>Pois dá uma olhada:</h2>
+
+  <li id="html">
+    HTML (💰 <span id="preco-html">3000</span> CUPS)
+    <input type="button" value="Curso" onclick="acessarCurso('html', 3000, 'html.html')">
+  </li>
+  <br>
+  <li id="css">
+    CSS (💰 <span id="preco-css">2500</span> CUPS)
+    <input type="button" value="Curso" onclick="acessarCurso('css', 2500, 'css.html')">
+  </li>
+  <br>
+  <li id="js">
+    JS (💰 <span id="preco-js">4000</span> CUPS)
+    <input type="button" value="Curso" onclick="acessarCurso('js', 4000, 'js.html')">
+  </li>
+
+  <br><br>
+  <button onclick="ganharCUPS()">Ganhar 50 CUPS</button>
+ 
+
+  <script src="script.js"></script>
+</body>
+</html>

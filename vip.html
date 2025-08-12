@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Receitas VIP - DoceNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>👑 VIP Zone - DoceNet</h1>
+  <p>Área secreta dos VIPs! Aqui o sabor é elite. E tem o Parce Açucarado também!</p>
+   <br><h2>👑 Receita: Doce de Leite Real</h2>
+<ol>
+  <li>1 litro de leite</li>
+  <li>2 xícaras de açúcar</li>
+  <li>Cozinhe por 1 hora até caramelizar</li>
+</ol>
+
+<p>🍬 Quanto tempo deve cozinhar o doce?</p>
+<input id="resposta3" placeholder="Digite em minutos ou horas">
+<button onclick="verificarResposta3()">Verificar</button>
+<br><br>
+<h3>Código</h3>
+<h4>HTML: <br>
+ >p>🍬 Quanto tempo deve cozinhar o doce? >/p> <br>
+>input id="resposta3" placeholder="Digite em minutos ou horas"> <br>
+>button onclick="verificarResposta3()">Verificar>/button>   <br>
+<br>Js: <br>
+
+function verificarResposta3() { <br>
+  let resposta = document.getElementById("resposta3").value.toLowerCase().trim(); <br>
+  if (resposta.includes("1 hora") || resposta.includes("60")) { <br>
+    ganharCups(8); <br>
+  } else { <br>
+    alert("Errado, mas não desiste! 💪🏽");<br>
+  } <br>
+} <br>
+
+</h4>
+<br><br>
+<script>
+function verificarResposta3() {
+  let resposta = document.getElementById("resposta3").value.toLowerCase().trim();
+  if (resposta.includes("1 hora") || resposta.includes("60")) {
+    ganharCups(8);
+  } else {
+    alert("Errado, mas não desiste! 💪🏽");
+  }
+}
+</script>
+<br>
+  <ul>
+    <li>Docinho de Ouro com Caramelo Crocante</li>
+    <li>Bolo Real com Cobertura de Morango Nobre</li>
+    <li>Receita Especial do Parce Açucarado 🍯✨</li>
+  </ul>
+
+  <div style="margin-top: 20px;">
+ 
+    <p><strong>Parce Açucarado:</strong> Só quem é VIP pode ver essa delícia mágica!</p>
+  </div>
+<br>
+  <button onclick="ganharCups(50)">👑 Mexi aqui! Ganhar CUPS VIP!</button>
+  <script>
+    let vip = localStorage.getItem("vip") === "true";
+    if (!vip) {
+      alert("Você não é VIP! Voltando pro menu...");
+      window.location.href = "index.html";
+    }
+
+    function ganharCups(valor) {
+      let atual = parseInt(localStorage.getItem("cups") || "0");
+      localStorage.setItem("cups", atual + valor);
+      alert("Você ganhou " + valor + " CUPS! Total: " + (atual + valor));
+    }
+  </script>
+</body>
+</html>

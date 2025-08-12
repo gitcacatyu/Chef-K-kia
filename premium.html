@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Receitas Premium - DoceNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🍫 Receitas Premium</h1>
+  <p>Essas receitas são desbloqueadas com seus preciosos CUPS!</p>
+ <h2>🍰 Receita: Bolo de Caneca</h2>
+<ol>
+  <li>4 colheres de farinha</li>
+  <li>4 colheres de leite</li>
+  <li>2 colheres de chocolate em pó</li>
+  <li>1 ovo</li>
+  <li>1 colher de óleo</li>
+</ol>
+<br>
+<p>🔍 Digite a quantidade de colheres de chocolate em pó:</p>
+<input id="resposta2" placeholder="Ex: 5">
+<button onclick="verificarResposta2()">Verificar</button>
+<br> <h3>
+    Código:
+</h3><br>
+<h4>>p>🔍 Digite a quantidade de colheres de chocolate em pó >/p> <br>
+>input id="resposta2" placeholder="Ex: 5"> <br>
+>button onclick="verificarResposta2()"> Verificar >/button> <br>
+Js: <br>
+function verificarResposta2() { <br>
+  let resposta = document.getElementById("resposta2").value.trim(); <br>
+  if (resposta === "resposta aqui") { <br>
+    ganharCups(5); <br>
+  } else { <br>
+    alert("Errou! 🤔 Vai tentando!"); <br>
+  } <br>
+} <br>
+</h4><br><br><br>
+
+<script>
+function verificarResposta2() {
+  let resposta = document.getElementById("resposta2").value.trim();
+  if (resposta === "2") {
+    ganharCups(5);
+  } else {
+    alert("Errou! 🤔 Vai tentando!");
+  }
+}
+</script>
+
+  <ul>
+    <li>Torta de Chocolate Trufado</li>
+    <li>Brownie com Recheio de Nutella</li>
+    <li>Pavê Crocante com Cupuaçu</li>
+  </ul>
+
+  <button onclick="ganharCups(25)">🍫 Mexi aqui! Ganhar CUPS!</button>
+  <script>
+    function ganharCups(valor) {
+      let atual = parseInt(localStorage.getItem("cups") || "0");
+      localStorage.setItem("cups", atual + valor);
+      alert("Você ganhou " + valor + " CUPS! Total: " + (atual + valor));
+    }
+  </script>
+</body>
+</html>

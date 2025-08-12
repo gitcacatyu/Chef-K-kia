@@ -1,0 +1,116 @@
+/* style.css — Recheio do ChefKakia's DoceNet */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom, #4b2e2e, #f7c6d9); /* Chocolate e rosa */
+  color: #fff;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #8b4513;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+header h1 {
+  font-size: 2.5em;
+  color: #ffd1dc;
+  text-shadow: 1px 1px #000;
+}
+
+header p {
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: #ffe;
+}
+
+.moedas {
+  margin-top: 15px;
+  background-color: #e91e63;
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  font-weight: bold;
+  color: #fff8dc;
+  font-size: 1.1em;
+}
+
+main {
+  margin-top: 30px;
+  display: grid;
+  gap: 30px;
+}
+
+section {
+  background-color: #ff69b4;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+section h2 {
+  color: #4b2e2e;
+  margin-bottom: 15px;
+  font-size: 1.6em;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  background-color: #fff8f8;
+  color: #4b2e2e;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+strong {
+  float: right;
+  color: #c2185b;
+}
+
+footer {
+  margin-top: 40px;
+  text-align: center;
+  background-color: #d2691e;
+  padding: 15px;
+  border-radius: 15px;
+  color: #fff3f3;
+  font-size: 1.1em;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+button{
+    background-color: #4b2e2e;
+    color: #fff;
+    border-radius: 10px;
+}
+button:hover{
+    background-color: #8b4513;
+    color: #000;
+}
+
+input{
+    color: #000;
+}
+div{
+   margin-top: 10px;
+  font-size: 1.2em;
+  color: #ffe;
+  background-color: #d2691e;
+  border-radius: 90px;
+}

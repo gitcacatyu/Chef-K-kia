@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Receitas</title>
+    <style>
+
+        body{
+            font: normal 25px arial;
+            margin: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
+        button{
+            background-color: rgb(158, 157, 157);
+            border-radius: 25px;
+            font: normal 25px arial;
+        }
+        button:hover{
+          background-color: palevioletred;
+          cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+      <h1>Receitas</h1>
+<br>
+<h4>🍫 Receita: Brigadeiro
+       Ingredientes:
+
+         1    lata de leite condensado
+
+         1 colher de manteiga
+
+           4 colheres de chocolate em pó
+
+          Modo de preparo:
+          Mexa tudo em fogo baixo até desgrudar da panela. Enrole com granulado!
+
+</h4>
+  <h2>Contador de Brigadeiros</h2>
+<button onclick="fazerBrigadeiro()">Fazer brigadeiro</button>
+<p>Você já fez <span id="contador">0</span> brigadeiros!</p>
+<h3>Código</h3>
+      <h4> let total = 0; <br>
+         function fazerBrigadeiro() {
+          total++; <br>
+             document.getElementById("contador").textContent = total;   <br>
+       }</h4>
+<script>
+  let total = 0;
+  function fazerBrigadeiro() {
+    total++;
+    document.getElementById("contador").textContent = total;
+  }
+</script>
+
+<br>
+
+<h4>🍩 Receita: Donut de Baunilha com Cobertura Rosa
+Ingredientes:
+
+2 xícaras de farinha de trigo
+
+1/2 xícara de açúcar
+
+1 colher de chá de fermento
+
+1/2 xícara de leite
+
+2 ovos
+
+2 colheres de manteiga
+
+Corante rosa + confeitos
+
+Modo de preparo:
+
+Mistura tudo até virar uma massa linda.
+
+Assa no forno até dourar.
+
+Cobertura rosa por cima + confeitos.
+
+E tá pronto o docinho da Chef Kákia!</h4>
+
+<h2>Personalize sua cobertura!</h2>
+<input type="color" id="colorPicker">
+<div id="donut" style="width: 150px; height: 150px; border-radius: 50%; background-color: pink; margin-top: 10px;"></div>
+<h3>Código</h3>
+<h4>const picker = document.getElementById("colorPicker");<br>
+  const donut = document.getElementById("donut");<br>
+<br>
+  picker.addEventListener("input", () => { <br>
+    donut.style.backgroundColor = picker.value;<br>
+  });<br> <br>
+</script>
+<script>
+  const picker = document.getElementById("colorPicker");
+  const donut = document.getElementById("donut");
+
+  picker.addEventListener("input", () => {
+    donut.style.backgroundColor = picker.value;
+  });
+</script>
+<button onclick="location.href='min.html'">Jogar Ganhar CUPS</button>
+
+</body>
+</html>

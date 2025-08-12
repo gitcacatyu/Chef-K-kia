@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Receitas Grátis - DoceNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🍬 Receitas Grátis</h1>
+  <p>Aqui estão algumas receitas doces e gratuitas pra você se deliciar sem gastar CUPS!</p>
+   <h2>👩🏽‍🍳 Receita: Brigadeiro Tradicional</h2>
+<ol>
+  <li>1 lata de leite condensado</li>
+  <li>1 colher de manteiga</li>
+  <li>4 colheres de chocolate em pó</li>
+  <li>Mexa tudo até soltar do fundo da panela</li>
+</ol>
+
+<p>🧠 Qual o ingrediente principal do brigadeiro?</p>
+<input id="resposta1" placeholder="Digite aqui..."  style="border-radius: 40px;">
+<button onclick="verificarResposta()">Verificar</button>
+
+<script>
+function verificarResposta() {
+  let resposta = document.getElementById("resposta1").value.toLowerCase().trim();
+  if (resposta.includes("leite condensado")) {
+    ganharCups(3);
+  } else {
+    alert("Ops! Tenta de novo... 🧐");
+  }
+}
+</script>
+
+<br><br>
+<h3>Código</h3>
+<br>
+<h4> HTML:
+    
+     p>🧠 Qual o ingrediente principal do brigadeiro? /p> <br>
+ input id="resposta1" placeholder="Digite aqui..."  style="border-radius: 40px;"><br>
+ button onclick="verificarResposta()">Verificar button <br>
+    Js:<br>
+    function verificarResposta() {<br>
+  let resposta = document.getElementById("resposta1").value.toLowerCase().trim();<br>
+  if (resposta.includes("leite condensado")) {<br>
+    ganharCups(3);<br>
+  } else {<br>
+    alert("Ops! Tenta de novo... 🧐");<br>
+    }<br>
+    }</h4>
+<br><br>
+  <ul>
+    <li>Sonho de Chocolate Básico</li>
+    <li>Bolinho Rápido de Micro-ondas</li>
+    <li>Brigadeiro Tradicional</li>
+  </ul>
+
+  <button onclick="ganharCups(5)">🍭 Mexi aqui! Ganhar CUPS!</button>
+  <script>
+    function ganharCups(valor) {
+      let atual = parseInt(localStorage.getItem("cups") || "0");
+      localStorage.setItem("cups", atual + valor);
+      alert("Você ganhou " + valor + " CUPS! Total: " + (atual + valor));
+    }
+  </script>
+</body>
+</html>

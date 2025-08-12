@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Javascript</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+  <style>
+    body  {
+      margin: 0;
+      padding: 0;
+      background: #121212;
+      color: #fff;
+      font-family: 'Arial';
+    }
+    .topo {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: #1f1f1f;
+    }
+    button {
+      background: pink;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #console {
+      background-color: #363636;
+      color: rgb(255, 0, 200);
+      padding: 15px;
+      height: 150px;
+      overflow-y: auto;
+      font-family: monospace;
+      border-top: 2px solid #444;
+    }
+    .CodeMirror {
+      height: 300px;
+      font-size: 16px;
+    }
+    .erro {
+      text-decoration: underline wavy rgb(255, 251, 0);
+    }
+    .aviso {
+      text-decoration: underline wavy rgb(255, 0, 0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topo">
+    <h2> Console JS </h2>
+    <div>
+      <button onclick="executar()">▶️ Executar</button>
+      <button onclick="limparConsole()">🧹 Limpar Console</button>
+      <button onclick="location.href='curhtml.html'">🏠 Home</button>
+    </div>
+  </div>
+   <h5>CTRL + Space = Autocomplete</h5>
+  <label for="code" style="display:none;">Editor de código</label>
+  <textarea id="code" title="Editor de código" placeholder=></textarea>
+  <div id="console">// Resultados aparecerão aqui</div> 
+   
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/show-hint.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror
+/5.65.13/addon/hint/show-hint.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/hint/javascript-hint.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror  /5.65.13/addon/hint/javascript-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/lint/lint.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror
+/5.65.13/addon/lint/lint.min.css">
+      
+  
+
+  <script>
+    const consoleDiv = document.getElementById("console");
+
+const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+  mode: "javascript",
+  theme: "dracula",
+  lineNumbers: true,
+  matchBrackets: true,
+  extraKeys: {
+    "Ctrl-Space": "autocomplete"
+  }
+});
+
+editor.on("change", () => {
+  localStorage.setItem("codigoBrabo", editor.getValue());
+  detectarErros();
+});
+
+window.onload = () => {
+  // Carregar código salvo
+  const salvo = localStorage.getItem("codigoBrabo");
+  if (salvo) editor.setValue(salvo);
+
+  // Carregar tema salvo ou padrão rosa
+  let tema = localStorage.getItem("tema") || "rosa";
+  document.body.className = tema;
+  document.getElementById("temaSelect").value = tema;
+
+  // Editor fixo no tema dracula (não muda)
+  editor.setOption("theme", "dracula");
+
+  // Ajustar console para o tema
+  atualizarConsoleTema(tema);
+};
+
+function executar() {
+  limparConsole();
+  const originalLog = console.log;
+  console.log = function(...args) {
+    const linha = args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : a).join(' ');
+    const node = document.createElement("div");
+    node.textContent = "> " + linha;
+    consoleDiv.appendChild(node);
+    originalLog(...args);
+  };
+
+  try {
+    eval(editor.getValue());
+  } catch (err) {
+    const node = document.createElement("div");
+    node.textContent = "❌ Erro: " + err.message;
+    node.style.color = "red";
+    consoleDiv.appendChild(node);
+  }
+
+  console.log = originalLog;
+}
+
+function limparConsole() {
+  consoleDiv.textContent = " >";
+}
+
+function detectarErros() {
+  const code = editor.getValue();
+  const lines = code.split("\n");
+  editor.operation(() => {
+    for (let i = 0; i < lines.length; i++) {
+      editor.removeLineClass(i, "text", "erro");
+      editor.removeLineClass(i, "text", "aviso");
+    }
+
+    lines.forEach((linha, i) => {
+      if (linha.trim().length > 0 && !linha.endsWith(";") && !linha.includes("{") && !linha.includes("}")) {
+        editor.addLineClass(i, "text", "aviso");
+        setTimeout(() => editor.removeLineClass(i, "text", "aviso"), 5000);
+      }
+    });
+
+    try {
+      new Function(code); // Verifica se JS é válido
+    } catch (e) {
+      const msg = e.stack.match(/<anonymous>:(\d+):/);
+      if (msg && msg[1]) {
+        const erroLinha = parseInt(msg[1]) - 1;
+        editor.addLineClass(erroLinha, "text", "erro");
+      }
+    }
+  });
+}
+
+
+
+
+function atualizarConsoleTema(tema) {
+  consoleDiv.className = tema;
+  consoleDiv.style.backgroundColor = getComputedStyle(document.body).backgroundColor;
+  consoleDiv.style.color = getComputedStyle(document.body).color;
+  consoleDiv.style.borderColor = getComputedStyle(document.body).color;
+  consoleDiv.style.borderStyle = "solid";
+  consoleDiv.style.borderWidth = "1px";
+  consoleDiv.style.padding = "10px";
+  consoleDiv.style.borderRadius = "5px";
+  consoleDiv.textContent = " >";
+}
+  </script>
+
+</body>
+</html>

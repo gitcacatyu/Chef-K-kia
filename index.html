@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChefKakia Boas vindas</title>
+</head>
+<style>
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+    }
+    h1 {
+        color: #ff6347;
+    }
+    button {
+        background-color: #ffa07a;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #ff4500;
+        color: white;
+    }
+    h3 {
+        color: #4682b4;
+    }
+    p {
+        color: #2f4f4f;
+    }
+    h1, h3, p {
+        margin: 10px 0;
+    }
+    h1, h3 {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+    h3 {
+        font-size: 1.5em;
+    }
+    p {
+        font-size: 1.2em;
+    }
+    button {
+        font-size: 1.2em;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #ff6347;
+        color: white;
+    }
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+    }
+    h1 {
+        color: #ff6347;
+    }
+    button {
+        background-color: #ffa07a;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <h1>Bem-vindo ao ChefKakia's DoceNet!</h1>
+     <h3>Que bom te ver!</h3>
+    <p>Você está no caminho certo para se tornar um mestre da programação com açúcar e
+doce!</p>
+    <p>Explore nossos cursos, receitas e loja de códigos para aprimorar suas habilidades!</
+p>
+    <p>Divirta-se e aproveite a jornada!</p>
+    <button onclick="location.href='x.html'">HOME</button>
+     
+   <script>
+    // Verifica se o usuário já tem CUPS guardados
+    if (!localStorage.getItem("cups")) {
+        localStorage.setItem("cups", "0");
+    }
+    // Exibe os CUPS guardados
+    const cupDisplay = document.getElementById("cupDisplay");
+    const cups = parseInt(localStorage.getItem("cups") || "0"); 
+    cupDisplay.innerText = `🍩 ${cups}`
+    // Função para completar a missão e ganhar CUPS
+    // ;
+   </script> 
+</body>
+</html>

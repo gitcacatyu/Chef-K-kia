@@ -1,0 +1,65 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>ChefKakia's DoceNet</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    button{
+        background-color: lightgrey;
+        border-radius: 20px;
+        width: 300px;
+    }
+    button:hover{
+        background-color: black;
+        color: white;
+        
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍰 ChefKakia's DoceNet 🍫</h1>
+    <p>Programando com açúcar... e muito estilo!</p>
+    <div class="moedas">
+      CUPS: <span id="cupDisplay">🍩 0</span>
+    </div>
+    <h4>Especialmente para computadores!</h4>
+  </header>
+
+  <main>
+    <section class="receitas">
+      <h2>📜 Receitas Doces</h2>
+      <ul>
+        <li>Bolo de Chocolate 🍫 — <strong>GRÁTIS</strong></li>
+        <li>Sonho Caramelado 🍯 — <strong>10 CUPS</strong></li>
+        <li>Cookie Explosivo 🍪 — <strong>20 CUPS</strong></li>
+      </ul>
+    </section>
+
+    <section class="loja">
+      <h2>🛒 Loja de Códigos</h2>
+      <ul>
+        <li>Script de Confete 💻 — <strong>15 CUPS</strong></li>
+        <li>Botão Caramelizado 🎮 — <strong>25 CUPS</strong></li>
+      </ul>
+    </section>
+  </main>
+  <button onclick="location.href='curhtml.html'" >Cursos</button>
+   <button onclick="completarMissao()">Completar Missão - Ganha 20 CUPS!</button>
+   <button onclick="location.href='loja.html'">Loja</button>
+   <button onclick="location.href='receitas.html'">Receitas ganha CUPS!</button>
+
+  <footer>
+    <p>(VIP) 🌟 Parce Açucarado: <strong>Ouro de Caramelo</strong> 🌟</p>
+  </footer>
+<script src="script.js"></script>
+  <script>
+    // Exibe os CUPS guardados
+    const cupDisplay = document.getElementById("cupDisplay");
+    const cups = parseInt(localStorage.getItem("cups") || "0");
+    cupDisplay.innerText = `🍩 ${cups}`;
+  </script>
+</body>
+</html>

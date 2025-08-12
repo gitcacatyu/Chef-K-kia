@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lojinha Doce 🍩 | ChefKakia's DoceNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🍩 Lojinha Doce da DoceNet</h1>
+    <p>Saldo: <span id="cupDisplay">Ꞓ 0</span></p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Receitas Grátis 🎁</h2>
+      <button onclick="comprarReceita('Bolo de Fubá', 0)">🍰 Bolo de Fubá - R$0</button>
+      <button onclick="comprarReceita('Pudim de Leite', 0)">🍮 Pudim de Leite - R$0</button>
+      
+    </section>
+
+    <section>
+      <h2>Receitas Premium 💎</h2>
+      <button onclick="comprarReceita('Torta de Limão', 50)">🥧 Torta de Limão - Ꞓ 50</button>
+      <button onclick="comprarReceita('Brownie de Chocolate', 70)">🍫 Brownie de Chocolate - Ꞓ 70</button>
+
+<div id="browniePassos" class="passos" style="display: none;">
+  <h3>Passo a passo: Brownie de Chocolate 🍫</h3>
+  <ol>
+    <li>Crie um arquivo chamado <code>brownie.html</code>.</li>
+    <li>Escreva a estrutura básica HTML.</li>
+    <li>Adicione um título: <code>&lt;h1&gt;Brownie de Chocolate&lt;/h1&gt;</code></li>
+    <li>Use <code>&lt;style&gt;</code> pra dar aquele toque de cacau no CSS.</li>
+    <li>Insira imagens e ingredientes com listas.</li>
+    <li>Finalize com um botão para voltar ao menu.</li>
+  </ol>
+</div>
+   
+    </section>
+
+    <section>
+      <h2>Acesso VIP ✨</h2>
+     <button onclick="comprarParceAçucarado()">Comprar Parce Açucarado (VIP) - 200 CUPS</button>
+
+    </section>
+
+    <section id="parceAçucarado" style="display: none;">
+      <h2>🍬 Parce Açucarado</h2>
+      <p>Você desbloqueou o Parce Açucarado! Ouro de caramelo ativado!</p>
+      
+    </section>
+  </main><br>
+      <input type="button" value="Ir para categorias" onclick="location.href='catero.html'">
+  <script src="script.js"></script>
+</body>
+</html>

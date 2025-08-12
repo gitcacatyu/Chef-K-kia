@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <h2>Escolha sua categoria:</h2>
+
+<button onclick="irPara('gratis')">🍬 Receitas Grátis</button>
+<button onclick="irPara('premium')">🍫 Receitas Premium</button>
+<button onclick="irPara('vip')">👑 VIP Exclusivo</button>
+
+<script>
+  function irPara(tipo) {
+    if (tipo === 'gratis') {
+      window.location.href = 'gratis.html';
+    } else if (tipo === 'premium') {
+      // Checar se o usuário tem CUPS suficientes (opcional)
+      window.location.href = 'premium.html';
+    } else if (tipo === 'vip') {
+      let vip = localStorage.getItem('vip') === 'true';
+      if (vip) {
+        window.location.href = 'vip.html';
+      } else {
+        alert('Somente VIPs podem acessar essa parte! 😅');
+      }
+    }
+  }
+</script>
+
+</body>
+</html>

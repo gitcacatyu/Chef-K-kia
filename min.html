@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Minijogo - Misture os Ingredientes</title>
+  <style>
+    body {
+      background: #fff8f5;
+      font-family: 'Comic Sans MS', cursive;
+      color: #3b1f1f;
+      text-align: center;
+    }
+    .ingredientes, .tigela {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px;
+      flex-wrap: wrap;
+    }
+    .ingrediente, .tigela {
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      border: 2px dashed #d17b5f;
+      border-radius: 10px;
+      background: #fff0eb;
+      cursor: grab;
+    }
+    .tigela {
+      background: #ffe8d8;
+      border-style: solid;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍫 Misture os Ingredientes! 🍓</h1>
+  <p>Arraste os ingredientes para a tigela correta!</p>
+
+  <div class="ingredientes">
+    <div class="ingrediente" draggable="true" id="a">🍫 Chocolate</div>
+    <div class="ingrediente" draggable="true" id="b">🥚 Ovo</div>
+    <div class="ingrediente" draggable="true" id="c">🍓 Morango</div>
+  </div>
+
+  <div class="tigela" id="tigela">
+    Arraste os ingredientes aqui!
+  </div>
+
+  <script>
+    let tigela = document.getElementById("tigela");
+    let colocados = new Set();
+
+    document.querySelectorAll('.ingrediente').forEach(el => {
+      el.addEventListener('dragstart', e => {
+        e.dataTransfer.setData("text", e.target.id);
+      });
+    });
+
+    tigela.addEventListener("dragover", e => {
+      e.preventDefault();
+    });
+
+    tigela.addEventListener("drop", e => {
+      e.preventDefault();
+      let id = e.dataTransfer.getData("text");
+      let item = document.getElementById(id);
+      if (!colocados.has(id)) {
+        tigela.appendChild(item);
+        colocados.add(id);
+      }
+      if (colocados.size === 3) {
+        setTimeout(() => {
+          adicionarCups(5);
+        }, 500);
+      }
+    });
+
+    function adicionarCups(qtd) {
+      let cups = parseInt(localStorage.getItem("cups") || "0");
+      cups += qtd;
+      localStorage.setItem("cups", cups);
+      alert(`Você ganhou ${qtd} CUPS! 🧁`);
+    }
+  </script>
+</body>
+</html>
