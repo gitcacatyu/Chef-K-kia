@@ -11,6 +11,12 @@
       text-align: center;
       padding: 20px;
     }
+    video{
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        margin: auto;
+    }
     #aulaBox {
       background: white;
       padding: 20px;
@@ -35,40 +41,68 @@
   </style>
 </head>
 <body>
-  <h1>Curso de HTML</h1>
-  <div id="aulaBox">
-    <h2 id="tituloAula">Carregando...</h2>
-    <p id="conteudoAula"></p>
-    <button onclick="proximaAula()">Próxima Aula ▶</button>
-  </div>
+<h1>Curso de HTML</h1>
+<div id="aulaBox">
+  <h2 id="tituloAula">Carregando...</h2>
+  <p id="conteudoAula"></p>
 
-  <script>
-    const aulas = [
-      { titulo: "Aula 1 - Introdução", conteudo: "HTML é a linguagem usada para estruturar páginas web. Significa HyperText Markup Language." },
-      { titulo: "Aula 2 - Estrutura básica", conteudo: "Toda página HTML começa com <!DOCTYPE html>, seguida das tags <html>, <head> e <body>." },
-      { titulo: "Aula 3 - Títulos e parágrafos", conteudo: "Use <h1> até <h6> para títulos e <p> para parágrafos." },
-      { titulo: "Aula 4 - Links e Imagens", conteudo: "Use <a href=''> para links e <img src='' alt=''> para imagens." },
-      { titulo: "Aula 5 - Finalização", conteudo: "Parabéns! Você aprendeu o básico de HTML. Agora é hora de praticar!" }
-    ];
+  <video id="videoAula" width="400" controls poster="./html.png" style="margin-top: 15px; display: none;">
+    <source id="srcVideo" src="" type="video/mp4">
+    Seu navegador não suporta vídeo.
+  </video>
 
-    let aulaAtual = parseInt(localStorage.getItem("progressoHTML") || 0);
+  <button onclick="proximaAula()">Próxima Aula ▶</button>
+</div>
 
-    function carregarAula() {
-      if (aulaAtual >= aulas.length) {
-        document.getElementById("aulaBox").innerHTML = "<h2>Curso concluído! ✅</h2><p>Parabéns, você terminou!</p>";
-      } else {
-        document.getElementById("tituloAula").textContent = aulas[aulaAtual].titulo;
-        document.getElementById("conteudoAula").textContent = aulas[aulaAtual].conteudo;
-      }
-    }
 
-    function proximaAula() {
-      aulaAtual++;
-      localStorage.setItem("progressoHTML", aulaAtual);
-      carregarAula();
-    }
+<script>
+const aulas = [
+  { titulo: "Aula 1 - Introdução", conteudo: "HTML é a linguagem usada para estruturar páginas web.", video:"html1.mp4"},
+  { titulo: "Aula 2 - Estrutura básica", conteudo: "Toda página HTML começa com <!DOCTYPE html>...", video:"html2.mp4"},
+  { titulo: "Aula 3 - Títulos e parágrafos", conteudo: "Use <h1> até <h6> para títulos e <p> para parágrafos.", video:"html3.mp4"},
+  { titulo: "Aula 4 - Links e Imagens", conteudo: "Use <a href=''> para links e <img src='' alt=''> para imagens.", video:"html4.mp4" },
+  { titulo: "Aula 5 - Finalização", conteudo: "Parabéns! Você aprendeu o básico de HTML.", video:"html5.mp4" }
+];
 
-    carregarAula();
-  </script>
+let aulaAtual = parseInt(localStorage.getItem("progressoHTML") || 0);
+
+function carregarAula() {
+  if (aulaAtual >= aulas.length) {
+    document.getElementById("aulaBox").innerHTML = "<h2>Curso concluído! ✅</h2><p>Parabéns, você terminou!</p><button onclick='reiniciarCurso()'>Reiniciar Curso 🔄</button>";
+    return;
+  }
+
+  const aula = aulas[aulaAtual];
+  document.getElementById("tituloAula").textContent = aula.titulo;
+  document.getElementById("conteudoAula").textContent = aula.conteudo;
+
+  const video = document.getElementById("videoAula");
+  const srcVideo = document.getElementById("srcVideo");
+
+  if (aula.video) {
+    srcVideo.src = aula.video;
+    video.style.display = "block";
+    video.load();
+  } else {
+    video.style.display = "none";
+  }
+}
+
+function proximaAula() {
+  aulaAtual++;
+  localStorage.setItem("progressoHTML", aulaAtual);
+  carregarAula();
+}
+
+function reiniciarCurso() {
+  aulaAtual = 0;
+  localStorage.setItem("progressoHTML", aulaAtual);
+  carregarAula();
+}
+
+carregarAula();
+</script>
+
+
 </body>
 </html>
