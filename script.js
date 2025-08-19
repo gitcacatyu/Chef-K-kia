@@ -124,15 +124,15 @@ function comprarParceAçucarado() {
   if (cups >= 200) {
     alert("Você comprou o Parce Açucarado! 🎉 Agora você tem desconto em todas as receitas!");
     localStorage.setItem("vip", "true");
-    localStorage.setItem("cups", cups - 200);  // Retira 200 CUPS do usuário
-    document.getElementById("cupDisplay").innerText = `Ꞓ ${cups - 200}`;
+    localStorage.setItem("cups", cups - 5000);  // Retira 5000 CUPS do usuário
+    document.getElementById("cupDisplay").innerText = `Ꞓ ${cups - 5000}`;
   } else {
     alert("Você não tem CUPS suficientes para comprar o Parce Açucarado.");
   }
 }
 function completarMissao() {
   let cups = parseInt(localStorage.getItem("cups") || "0");
-  cups += 20;  // Ganha 10 CUPS
+  cups += 20;  // Ganha 20 CUPS
   localStorage.setItem("cups", cups);
   document.getElementById("cupDisplay").innerText = `Ꞓ ${cups}`;
   alert("Missão cumprida! Você ganhou 20 CUPS!");
@@ -172,6 +172,7 @@ function atualizarPrecos() {
   document.getElementById("preco-html").innerText = vip ? 1500 : 3000;
   document.getElementById("preco-css").innerText = vip ? 1200 : 2500;
   document.getElementById("preco-js").innerText = vip ? 2000 : 4000;
+  document.getElementById("preco-jsi").innerText = vip ? 1000 : 2000;
 }
 
 atualizarCUPS();
@@ -231,11 +232,11 @@ function ganharCUPS() {
   }
 
   let cups = parseInt(localStorage.getItem("cups"));
-  cups += 50;
+  cups += 500;
   localStorage.setItem("cups", cups);
   dados.vezes += 1;
   localStorage.setItem("ganhosCups", JSON.stringify(dados));
 
   atualizarCUPS();
-  alert(`Você ganhou 50 CUPS! (${dados.vezes}/3 hoje)`);
+  alert(`Você ganhou 500 CUPS! (${dados.vezes}/3 hoje)`);
 }

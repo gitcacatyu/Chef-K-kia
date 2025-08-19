@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curso de HTML</title>
+  <title>Curso de JavaScript</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,18 +24,18 @@
       margin-top: 20px;
       border: none;
       border-radius: 8px;
-      background: #28a745;
+      background: #f39c12;
       color: white;
       font-size: 16px;
       cursor: pointer;
     }
     button:hover {
-      background: #218838;
+      background: #e67e22;
     }
   </style>
 </head>
 <body>
-  <h1>Curso de HTML</h1>
+  <h1>Curso de JavaScript</h1>
   <div id="aulaBox">
     <h2 id="tituloAula">Carregando...</h2>
     <p id="conteudoAula"></p>
@@ -44,14 +44,14 @@
 
   <script>
     const aulas = [
-      { titulo: "Aula 1 - Introdução", conteudo: "HTML é a linguagem usada para estruturar páginas web. Significa HyperText Markup Language." },
-      { titulo: "Aula 2 - Estrutura básica", conteudo: "Toda página HTML começa com <!DOCTYPE html>, seguida das tags <html>, <head> e <body>." },
-      { titulo: "Aula 3 - Títulos e parágrafos", conteudo: "Use <h1> até <h6> para títulos e <p> para parágrafos." },
-      { titulo: "Aula 4 - Links e Imagens", conteudo: "Use <a href=''> para links e <img src='' alt=''> para imagens." },
-      { titulo: "Aula 5 - Finalização", conteudo: "Parabéns! Você aprendeu o básico de HTML. Agora é hora de praticar!" }
+      { titulo: "Aula 1 - O que é JavaScript?", conteudo: "JavaScript é a linguagem de programação usada para dar interatividade a páginas web." },
+      { titulo: "Aula 2 - Como usar JavaScript", conteudo: "Use a tag <script> no HTML ou arquivos externos .js." },
+      { titulo: "Aula 3 - Variáveis", conteudo: "Use let, const e var para criar variáveis." },
+      { titulo: "Aula 4 - Funções", conteudo: "Funções são blocos de código que podem ser reutilizados. Ex: function minhaFuncao() {}" },
+      { titulo: "Aula 5 - DOM e eventos", conteudo: "Use document.querySelector e eventos como onclick para interagir com a página." }
     ];
 
-    let aulaAtual = parseInt(localStorage.getItem("progressoHTML") || 0);
+    let aulaAtual = parseInt(localStorage.getItem("progressoJS") || 0);
 
     function carregarAula() {
       if (aulaAtual >= aulas.length) {
@@ -64,7 +64,7 @@
 
     function proximaAula() {
       aulaAtual++;
-      localStorage.setItem("progressoHTML", aulaAtual);
+      localStorage.setItem("progressoJS", aulaAtual);
       carregarAula();
     }
 

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aposte</title>
+    <style>
+        /* ======== Estilo Geral do Corpo ======== */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, #ffe6f0, #d0ffd0);
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ======== Container Principal ======== */
+#apostaContainer {
+    max-width: 600px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #1f7a1f;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+#apostaContainer:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 20px rgba(0, 255, 42, 0.45);
+    background-color: #444;
+    border: 2px solid #0fa302;
+}
+
+/* ======== Título ======== */
+h2 {
+    font: normal 40px Arial, sans-serif;
+    color: #1f7a1f;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ======== Valor de CUPS ======== */
+#cupValor {
+    font-weight: bold;
+    color: #ffd700;
+    font-size: 25px;
+}
+
+/* ======== Input de Aposta ======== */
+input[type="number"] {
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin: 15px auto;
+    width: 100px;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+input[type="number"]:hover {
+    border-color: #1f7a1f;
+    transform: scale(1.1);
+}
+
+/* ======== Botões ======== */
+button {
+    width: 120px;
+    border-radius: 20px;
+    background-color: #0b8000;
+    cursor: pointer;
+    color: white;
+    font: normal 16pt Arial, sans-serif;
+    border: 2px solid black;
+    transition: all 0.3s ease;
+    margin: 10px auto;
+    padding: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 255, 42, 0.45);
+}
+button:hover {
+    border: 3px solid #1f7a1f;
+    background-color: white;
+    color: black;
+    transform: scale(1.1);
+    box-shadow: 5px 5px 15px rgba(52, 255, 1, 0.45);
+}
+
+/* ======== Mensagem do Resultado ======== */
+#resultado {
+    font: bold 20pt Arial, sans-serif;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    text-align: center;
+    min-height: 50px;
+    transition: all 0.3s ease;
+}
+
+/* ======== Vitória ======== */
+.vitoria {
+    color: #00ff00;
+    background-color: #003300;
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+    animation: flashVerde 0.5s ease-in-out 2;
+}
+
+/* ======== Derrota ======== */
+.derrota {
+    color: #ff0000;
+    background-color: #330000;
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 15px #ff0000;
+    animation: flashVermelho 0.5s ease-in-out 2;
+}
+
+/* ======== Animações ======== */
+@keyframes flashVerde {
+    0%, 100% { background-color: #003300; }
+    50% { background-color: #00ff00; color: #003300; }
+}
+@keyframes flashVermelho {
+    0%, 100% { background-color: #330000; }
+    50% { background-color: #ff0000; color: #330000; }
+}
+
+/* ======== Responsivo ======== */
+@media (max-width: 768px) {
+    #apostaContainer {
+        padding: 20px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    input[type="number"] {
+        width: 80px;
+    }
+    button {
+        width: 100px;
+        font-size: 14pt;
+        padding: 8px;
+    }
+    #resultado {
+        font-size: 16pt;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <h2>Aposte seus CUPS!</h2>
+<p>Você tem <span id="cupValor">100</span> CUPS na caixinha!</p>
+
+<label for="aposta">Quanto quer apostar?</label>
+<input type="number" id="aposta" min="1" max="1000">
+
+<button onclick="apostar()">Apostar!</button>
+
+<script>
+let moedas = parseInt(localStorage.getItem("moedas") || "100");
+document.getElementById("cupValor").innerText = moedas;
+
+function apostar() {
+  const aposta = parseInt(document.getElementById("aposta").value);
+  if (!aposta || aposta <= 0) {
+    alert("Digite um valor válido!");
+    return;
+  }
+  if (aposta > moedas) {
+    alert("Você não tem CUPS suficientes!");
+    return;
+  }
+
+  // Simula cara ou coroa (0 = cara, 1 = coroa)
+  const resultado = Math.floor(Math.random() * 2);
+  const escolhaUsuario = Math.floor(Math.random() * 2); // só pra exemplo, depois deixa o usuário escolher
+
+  if (resultado === escolhaUsuario) {
+    moedas += aposta; // ganha o valor da aposta
+    alert("Parabéns! Você ganhou " + aposta + " CUPS!");
+  } else {
+    moedas -= aposta; // perde a aposta
+    alert("Que azar! Você perdeu " + aposta + " CUPS!");
+  }
+
+  localStorage.setItem("moedas", moedas);
+  document.getElementById("cupValor").innerText = moedas;
+}
+</script>
+
+</body>
+</html>
+</script>

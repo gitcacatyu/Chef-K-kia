@@ -59,7 +59,7 @@ function verificarResposta3() {
     <p><strong>Parce Açucarado:</strong> Só quem é VIP pode ver essa delícia mágica!</p>
   </div>
 <br>
-  <button onclick="ganharCups(50)">👑 Mexi aqui! Ganhar CUPS VIP!</button>
+  <button onclick="ganharCups(10000)">👑 Mexi aqui! Ganhar CUPS VIP!</button>
   <script>
     let vip = localStorage.getItem("vip") === "true";
     if (!vip) {
@@ -70,7 +70,6 @@ function verificarResposta3() {
     function ganharCups(valor) {
       let atual = parseInt(localStorage.getItem("cups") || "0");
       localStorage.setItem("cups", atual + valor);
-      alert("Você ganhou " + valor + " CUPS! Total: " + (atual + valor));
     }
   </script>
 </body>

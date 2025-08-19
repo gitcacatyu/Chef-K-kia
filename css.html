@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curso de HTML</title>
+  <title>Curso de CSS</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,18 +24,18 @@
       margin-top: 20px;
       border: none;
       border-radius: 8px;
-      background: #28a745;
+      background: #007bff;
       color: white;
       font-size: 16px;
       cursor: pointer;
     }
     button:hover {
-      background: #218838;
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
-  <h1>Curso de HTML</h1>
+  <h1>Curso de CSS</h1>
   <div id="aulaBox">
     <h2 id="tituloAula">Carregando...</h2>
     <p id="conteudoAula"></p>
@@ -44,14 +44,14 @@
 
   <script>
     const aulas = [
-      { titulo: "Aula 1 - Introdução", conteudo: "HTML é a linguagem usada para estruturar páginas web. Significa HyperText Markup Language." },
-      { titulo: "Aula 2 - Estrutura básica", conteudo: "Toda página HTML começa com <!DOCTYPE html>, seguida das tags <html>, <head> e <body>." },
-      { titulo: "Aula 3 - Títulos e parágrafos", conteudo: "Use <h1> até <h6> para títulos e <p> para parágrafos." },
-      { titulo: "Aula 4 - Links e Imagens", conteudo: "Use <a href=''> para links e <img src='' alt=''> para imagens." },
-      { titulo: "Aula 5 - Finalização", conteudo: "Parabéns! Você aprendeu o básico de HTML. Agora é hora de praticar!" }
+      { titulo: "Aula 1 - O que é CSS?", conteudo: "CSS significa Cascading Style Sheets e serve para estilizar páginas HTML." },
+      { titulo: "Aula 2 - Como usar CSS", conteudo: "Existem 3 formas: inline, interna (dentro do <style>) e externa (arquivo .css)." },
+      { titulo: "Aula 3 - Seletores básicos", conteudo: "Use tags, IDs (#meuId) e classes (.minhaClasse) para selecionar elementos." },
+      { titulo: "Aula 4 - Cores e fontes", conteudo: "Use color, background-color, font-size e font-family para personalizar." },
+      { titulo: "Aula 5 - Finalização", conteudo: "Parabéns! Agora você pode criar layouts bonitos com CSS." }
     ];
 
-    let aulaAtual = parseInt(localStorage.getItem("progressoHTML") || 0);
+    let aulaAtual = parseInt(localStorage.getItem("progressoCSS") || 0);
 
     function carregarAula() {
       if (aulaAtual >= aulas.length) {
@@ -64,7 +64,7 @@
 
     function proximaAula() {
       aulaAtual++;
-      localStorage.setItem("progressoHTML", aulaAtual);
+      localStorage.setItem("progressoCSS", aulaAtual);
       carregarAula();
     }
 
