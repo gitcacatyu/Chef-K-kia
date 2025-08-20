@@ -124,8 +124,8 @@ function comprarParceAçucarado() {
   if (cups >= 200) {
     alert("Você comprou o Parce Açucarado! 🎉 Agora você tem desconto em todas as receitas!");
     localStorage.setItem("vip", "true");
-    localStorage.setItem("cups", cups - 5000);  // Retira 5000 CUPS do usuário
-    document.getElementById("cupDisplay").innerText = `Ꞓ ${cups - 5000}`;
+    localStorage.setItem("cups", cups - 50000000);  // Retira 50000000 CUPS do usuário
+    document.getElementById("cupDisplay").innerText = `Ꞓ ${cups - 50000000}`;
   } else {
     alert("Você não tem CUPS suficientes para comprar o Parce Açucarado.");
   }

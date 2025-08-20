@@ -180,21 +180,25 @@ function apostar() {
     return;
   }
 
+  // Subtrai a aposta primeiro
+  moedas -= aposta;
+
   // Simula cara ou coroa (0 = cara, 1 = coroa)
   const resultado = Math.floor(Math.random() * 2);
   const escolhaUsuario = Math.floor(Math.random() * 2); // só pra exemplo, depois deixa o usuário escolher
 
   if (resultado === escolhaUsuario) {
-    moedas += aposta; // ganha o valor da aposta
-    alert("Parabéns! Você ganhou " + aposta + " CUPS!");
+    const ganho = aposta * 2; // ganha o dobro da aposta
+    moedas += ganho;
+    alert("Parabéns! Você ganhou " + ganho + " CUPS!");
   } else {
-    moedas -= aposta; // perde a aposta
     alert("Que azar! Você perdeu " + aposta + " CUPS!");
   }
 
   localStorage.setItem("moedas", moedas);
   document.getElementById("cupValor").innerText = moedas;
 }
+
 </script>
 
 </body>
