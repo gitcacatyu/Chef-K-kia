@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuperCUPS Turbo</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ffe600, #00ff00);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 50px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    #cupValor {
+        font-size: 30px;
+        font-weight: bold;
+        color: #ffd700;
+        margin-bottom: 40px;
+    }
+
+    #superCups {
+        padding: 20px 40px;
+        font-size: 24px;
+        background-color: gold;
+        border: 3px solid #333;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #superCups:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px #00ff00;
+    }
+</style>
+</head>
+<body>
+
+<h1>SuperCUPS Turbo 💰</h1>
+<p>Seu saldo: <span id="cupValor">0</span> CUPS</p>
+<button id="superCups">💸 +SuperCUPS</button>
+
+<script>
+// Pega o elemento do display
+const cupDisplay = document.getElementById('cupValor');
+const btn = document.getElementById('superCups');
+
+// Inicializa moedas do localStorage
+let moedas = BigInt(localStorage.getItem('moedas') || '100');
+cupDisplay.innerText = moedas.toString();
+
+btn.addEventListener('click', () => {
+    // Adiciona super mega CUPS
+    moedas += BigInt('1000000000000000000000000000000000000000000000');
+    localStorage.setItem('moedas', moedas.toString());
+    cupDisplay.innerText = moedas.toString();
+});
+</script>
+
+</body>
+</html>

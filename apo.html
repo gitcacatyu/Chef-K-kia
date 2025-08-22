@@ -161,12 +161,14 @@ button:hover {
 <p>Você tem <span id="cupValor">100</span> CUPS na caixinha!</p>
 
 <label for="aposta">Quanto quer apostar?</label>
-<input type="number" id="aposta" min="1" max="1000000">
-
+<input type="number" id="aposta" min="1" max="1000000000">
+<button onclick="autoApostar()">Começar Aposta Automática</button>
+<button onclick="pararAutoAposta()">Parar</button>
 <button onclick="apostar()">Apostar!</button>
-
+<h2 id="cupDisplay">Ꞓ 0</h2>
+<button onclick="iniciarMinijogo()">Ganhar CUPS (Minijogo)</button>
 <script>
-let moedas = parseInt(localStorage.getItem("moedas") || "100");
+let moedas = parseInt(localStorage.getItem("moedas") || "1000000000");
 document.getElementById("cupValor").innerText = moedas;
 
 function apostar() {
@@ -184,11 +186,11 @@ function apostar() {
   moedas -= aposta;
 
   // Simula cara ou coroa (0 = cara, 1 = coroa)
-  const resultado = Math.floor(Math.random() * 2);
-  const escolhaUsuario = Math.floor(Math.random() * 2); // só pra exemplo, depois deixa o usuário escolher
+  const resultado = Math.floor(Math.random() * 4);
+  const escolhaUsuario = Math.floor(Math.random() * 4); // só pra exemplo, depois deixa o usuário escolher
 
   if (resultado === escolhaUsuario) {
-    const ganho = aposta * 2; // ganha o dobro da aposta
+    const ganho = aposta * 4; // ganha o dobro da aposta
     moedas += ganho;
     alert("Parabéns! Você ganhou " + ganho + " CUPS!");
   } else {
@@ -199,8 +201,167 @@ function apostar() {
   document.getElementById("cupValor").innerText = moedas;
 }
 
+
+
+
+
+function autoApostar() {
+    if(autoInterval) return; // se já estiver rodando, não cria outro
+    autoInterval = setInterval(() => {
+        let moedas = parseInt(localStorage.getItem("moedas") || "100000");
+        let aposta = Math.min(1000000, moedas); // aposta até 1000000 CUPS ou o máximo que tiver
+
+        if(aposta <= 0) {
+            alert("Saldo zerado! Parando apostas.");
+            pararAutoAposta();
+            return;
+        }
+
+        const resultado = Math.floor(Math.random() * 4);
+        const escolhaUsuario = Math.floor(Math.random() * 4);
+
+        if (resultado === escolhaUsuario) {
+            moedas += aposta;
+            console.log(`Ganhou ${aposta} CUPS! Saldo: Ꞓ ${moedas}`);
+        } else {
+            moedas -= aposta;
+            console.log(`Perdeu ${aposta} CUPS! Saldo: Ꞓ ${moedas}`);
+        }
+
+        localStorage.setItem("moedas", moedas);
+        document.getElementById("cupValor").innerText = moedas;
+    }, 500); // aposta a cada 0,5 segundos
+}
+
+function pararAutoAposta() {
+    clearInterval(autoInterval);
+    autoInterval = null;
+    console.log("Aposta automática parada.");
+}
+let cups = parseInt(localStorage.getItem("cups") || "1000");
+document.getElementById("cupValor").innerText = cups;
+
+function apostar() {
+  const aposta = parseInt(document.getElementById("aposta").value);
+  if (!aposta || aposta <= 0) {
+    alert("Digite um valor válido!");
+    return;
+  }
+  if (aposta > cups) {
+    alert("Você não tem CUPS suficientes!");
+    return;
+  }
+
+  // Subtrai a aposta primeiro
+  cups -= aposta;
+
+  const resultado = Math.floor(Math.random() * 4);
+  const escolhaUsuario = Math.floor(Math.random() * 4);
+
+  if (resultado === escolhaUsuario) {
+    const ganho = aposta * 4;
+    cups += ganho;
+    alert("Parabéns! Você ganhou " + ganho + " CUPS!");
+  } else {
+    alert("Que azar! Você perdeu " + aposta + " CUPS!");
+  }
+
+  localStorage.setItem("cups", cups);
+  atualizarDisplay();
+}
+
+let autoInterval;
+
+function autoApostar() {
+  if(autoInterval) return;
+  autoInterval = setInterval(() => {
+      let aposta = Math.min(1000000, cups);
+
+      if(aposta <= 0) {
+          alert("Saldo zerado! Parando apostas.");
+          pararAutoAposta();
+          return;
+      }
+
+      const resultado = Math.floor(Math.random() * 4);
+      const escolhaUsuario = Math.floor(Math.random() * 4);
+
+      if (resultado === escolhaUsuario) {
+          cups += aposta;
+          console.log(`Ganhou ${aposta} CUPS! Saldo: Ꞓ ${cups}`);
+      } else {
+          cups -= aposta;
+          console.log(`Perdeu ${aposta} CUPS! Saldo: Ꞓ ${cups}`);
+      }
+
+      localStorage.setItem("cups", cups);
+      atualizarDisplay();
+  }, 500);
+}
+
+function pararAutoAposta() {
+  clearInterval(autoInterval);
+  autoInterval = null;
+  console.log("Aposta automática parada.");
+}
+
+function atualizarDisplay() {
+  document.getElementById("cupValor").innerText = cups;
+  document.getElementById("cupDisplay").innerText = `Ꞓ ${cups}`;
+}
+
+function iniciarMinijogo() {
+  let clicks = 0;
+  const tempo = 10;
+  alert(`Clique no botão o máximo que puder em ${tempo} segundos!`);
+
+  const btn = document.createElement("button");
+  btn.innerText = "Clique!";
+  btn.style.fontSize = "24px";
+  btn.style.margin = "20px";
+  btn.style.padding = "15px 30px";
+  btn.style.background = "#ff00b3";
+  btn.style.color = "#fff";
+  btn.style.border = "none";
+  btn.style.borderRadius = "10px";
+  btn.style.cursor = "pointer";
+  document.body.appendChild(btn);
+
+  btn.onclick = () => {
+    clicks++;
+    btn.innerText = `Clique! (${clicks})`;
+  };
+
+  const contador = document.createElement("h3");
+  contador.style.color = "#fff";
+  document.body.appendChild(contador);
+
+  let tempoRestante = tempo;
+  contador.innerText = `Tempo: ${tempoRestante}s`;
+
+  const timer = setInterval(() => {
+    tempoRestante--;
+    contador.innerText = `Tempo: ${tempoRestante}s`;
+  }, 1000);
+
+  setTimeout(() => {
+    clearInterval(timer);
+    btn.remove();
+    contador.remove();
+
+    const ganho = clicks * 100;
+    cups += ganho;
+    localStorage.setItem("cups", cups);
+    atualizarDisplay();
+
+    alert(`Fim do tempo! Você clicou ${clicks} vezes e ganhou ${ganho} CUPS!`);
+  }, tempo * 1000);
+}
+
+atualizarDisplay();
+;
 </script>
 
 </body>
 </html>
-</script>
+

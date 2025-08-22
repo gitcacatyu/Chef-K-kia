@@ -32,6 +32,12 @@
     button:hover {
       background: #0056b3;
     }
+     video{
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        margin: auto;
+    }
   </style>
 </head>
 <body>
@@ -40,35 +46,63 @@
     <h2 id="tituloAula">Carregando...</h2>
     <p id="conteudoAula"></p>
     <button onclick="proximaAula()">Próxima Aula ▶</button>
+
+    <video id="videoAula" width="400" controls poster="./css.png" style="margin-top: 15px; display: none;">
+    <source id="srcVideo" src="" type="video/mp4">
+    Seu navegador não suporta vídeo.
+  </video>
   </div>
 
-  <script>
-    const aulas = [
-      { titulo: "Aula 1 - O que é CSS?", conteudo: "CSS significa Cascading Style Sheets e serve para estilizar páginas HTML." },
-      { titulo: "Aula 2 - Como usar CSS", conteudo: "Existem 3 formas: inline, interna (dentro do <style>) e externa (arquivo .css)." },
-      { titulo: "Aula 3 - Seletores básicos", conteudo: "Use tags, IDs (#meuId) e classes (.minhaClasse) para selecionar elementos." },
-      { titulo: "Aula 4 - Cores e fontes", conteudo: "Use color, background-color, font-size e font-family para personalizar." },
-      { titulo: "Aula 5 - Finalização", conteudo: "Parabéns! Agora você pode criar layouts bonitos com CSS." }
-    ];
+ <script>
+  const aulas = [
+    { titulo: "Aula 1 - O que é CSS?", conteudo: "CSS significa Cascading Style Sheets e serve para estilizar páginas HTML.", video:'css1.mp4' },
+    { titulo: "Aula 2 - Como usar CSS", conteudo: "Existem 3 formas: inline, interna (dentro do <style>) e externa (arquivo .css).", video:'css2.mp4' },
+    { titulo: "Aula 3 - Seletores básicos", conteudo: "Use tags, IDs (#meuId) e classes (.minhaClasse) para selecionar elementos.", video:'css3.mp4' },
+    { titulo: "Aula 4 - Cores e fontes", conteudo: "Use color, background-color, font-size e font-family para personalizar.", video:'css4.mp4' },
+    { titulo: "Aula 5 - Finalização", conteudo: "Parabéns! Agora você pode criar layouts bonitos com CSS.", video:'css5.mp4' }
+  ];
 
-    let aulaAtual = parseInt(localStorage.getItem("progressoCSS") || 0);
+  let aulaAtual = parseInt(localStorage.getItem("progressoCSS") || 0);
+  const video = document.getElementById("videoAula");
+  const srcVideo = document.getElementById("srcVideo");
 
-    function carregarAula() {
-      if (aulaAtual >= aulas.length) {
-        document.getElementById("aulaBox").innerHTML = "<h2>Curso concluído! ✅</h2><p>Parabéns, você terminou!</p>";
-      } else {
-        document.getElementById("tituloAula").textContent = aulas[aulaAtual].titulo;
-        document.getElementById("conteudoAula").textContent = aulas[aulaAtual].conteudo;
-      }
+  function carregarAula() {
+    if (aulaAtual >= aulas.length) {
+      document.getElementById("aulaBox").innerHTML = `
+        <h2>Curso concluído! ✅</h2>
+        <p>Parabéns, você terminou!</p>
+        <button onclick="reiniciarCurso()">Reiniciar Curso 🔄</button>
+      `;
+      return;
     }
 
-    function proximaAula() {
-      aulaAtual++;
-      localStorage.setItem("progressoCSS", aulaAtual);
-      carregarAula();
-    }
+    const aula = aulas[aulaAtual];
+    document.getElementById("tituloAula").innerText = aula.titulo;
+    document.getElementById("conteudoAula").innerText = aula.conteudo;
 
+    if (aula.video) {
+      srcVideo.src = aula.video;
+      video.style.display = "block";
+      video.load();
+    } else {
+      video.style.display = "none";
+    }
+  }
+
+  function proximaAula() {
+    aulaAtual++;
+    localStorage.setItem("progressoCSS", aulaAtual);
     carregarAula();
-  </script>
+  }
+
+  function reiniciarCurso() {
+    aulaAtual = 0;
+    localStorage.setItem("progressoCSS", aulaAtual);
+    carregarAula();
+  }
+
+  carregarAula();
+</script>
+
 </body>
 </html>

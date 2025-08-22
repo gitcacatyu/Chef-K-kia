@@ -106,6 +106,13 @@ button:hover{
 
 input{
     color: #000;
+    background-color: #8b4513;
+    border-radius: 10px;
+    cursor: pointer;
+}
+input:hover{
+  color: #ffff;
+  background-color: #d2691e;
 }
 div{
    margin-top: 10px;

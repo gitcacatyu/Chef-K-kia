@@ -121,7 +121,7 @@ function comprarReceita(nome, preco) {
 function comprarParceAçucarado() {
   let cups = parseInt(localStorage.getItem("cups") || "0");
 
-  if (cups >= 200) {
+  if (cups >= 50000000) {
     alert("Você comprou o Parce Açucarado! 🎉 Agora você tem desconto em todas as receitas!");
     localStorage.setItem("vip", "true");
     localStorage.setItem("cups", cups - 50000000);  // Retira 50000000 CUPS do usuário
@@ -130,6 +130,37 @@ function comprarParceAçucarado() {
     alert("Você não tem CUPS suficientes para comprar o Parce Açucarado.");
   }
 }
+function comprarSuper() {
+  let cups = parseInt(localStorage.getItem("cups") || "0");
+  const preco = 1000000000000;
+
+  if (cups >= preco) {
+    alert("Você vai ficar Cupsado! 😎🤯🎁🫡🚀🎉🥳🤩😏🤑🧁");
+
+    // Atualiza saldo
+    const novoSaldo = cups - preco;
+    localStorage.setItem("cups", novoSaldo);
+
+    // Marca como comprado
+    localStorage.setItem("super", "true");
+
+    // Atualiza o display
+    const display = document.getElementById("cupDisplay");
+    if (display) display.innerText = `Ꞓ ${novoSaldo}`;
+
+    // Redireciona
+    location.href = 'super.html';
+  } else {
+    const faltam = preco - cups;
+    alert(`Você não tem CUPS suficientes! Faltam Ꞓ ${faltam}. 😔`);
+  }
+}
+
+// Para verificar depois:
+if (localStorage.getItem("super") === "true") {
+  console.log("Usuário já comprou o SUPERTURBO CUPS!");
+}
+
 function completarMissao() {
   let cups = parseInt(localStorage.getItem("cups") || "0");
   cups += 20;  // Ganha 20 CUPS
