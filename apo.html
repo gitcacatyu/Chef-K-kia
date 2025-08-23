@@ -190,7 +190,7 @@ function apostar() {
   const escolhaUsuario = Math.floor(Math.random() * 4); // só pra exemplo, depois deixa o usuário escolher
 
   if (resultado === escolhaUsuario) {
-    const ganho = aposta * 4; // ganha o dobro da aposta
+    const ganho = aposta * 2; // ganha o dobro da aposta
     moedas += ganho;
     alert("Parabéns! Você ganhou " + ganho + " CUPS!");
   } else {
@@ -349,7 +349,7 @@ function iniciarMinijogo() {
     btn.remove();
     contador.remove();
 
-    const ganho = clicks * 100;
+    const ganho = clicks * 1000;
     cups += ganho;
     localStorage.setItem("cups", cups);
     atualizarDisplay();
