@@ -5,67 +5,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curso de JavaScript</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      text-align: center;
-      padding: 20px;
-    }
-    #aulaBox {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #aaa;
-      width: 80%;
-      margin: auto;
-    }
-    button {
-      padding: 10px 20px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 8px;
-      background: #f39c12;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #e67e22;
-    }
+    body { font-family: Arial, sans-serif; background:#f4f4f4; text-align:center; padding:20px; }
+    #aulaBox { background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px #aaa; width:80%; margin:auto; }
+    button { padding:10px 20px; margin-top:20px; border:none; border-radius:8px; background:#f39c12; color:#fff; font-size:16px; cursor:pointer; }
+    button:hover { background:#e67e22; }
+    #progressoContainer { width:80%; background:#ddd; border-radius:10px; margin:20px auto; height:20px; overflow:hidden; }
+    #progressoBar { height:100%; width:0%; background:#27ae60; transition:width .4s ease; }
+    video { margin: auto; padding: 10px; }
   </style>
 </head>
 <body>
   <h1>Curso de JavaScript</h1>
+
+  <!-- Barra de progresso -->
+  <div id="progressoContainer">
+    <div id="progressoBar"></div>
+  </div>
+
   <div id="aulaBox">
     <h2 id="tituloAula">Carregando...</h2>
     <p id="conteudoAula"></p>
     <button onclick="proximaAula()">Próxima Aula ▶</button>
+    <button onclick="reiniciarCurso()">Reiniciar Curso 🔄</button>
+
+    <video id="videoAula" width="400" controls poster="./js.png" style="display:none">
+      <source id="srcVideo" src="" type="video/mp4">
+      Seu navegador não suporta vídeo.
+    </video>
   </div>
 
   <script>
     const aulas = [
-      { titulo: "Aula 1 - O que é JavaScript?", conteudo: "JavaScript é a linguagem de programação usada para dar interatividade a páginas web." },
-      { titulo: "Aula 2 - Como usar JavaScript", conteudo: "Use a tag <script> no HTML ou arquivos externos .js." },
-      { titulo: "Aula 3 - Variáveis", conteudo: "Use let, const e var para criar variáveis." },
-      { titulo: "Aula 4 - Funções", conteudo: "Funções são blocos de código que podem ser reutilizados. Ex: function minhaFuncao() {}" },
-      { titulo: "Aula 5 - DOM e eventos", conteudo: "Use document.querySelector e eventos como onclick para interagir com a página." }
+      { titulo: "Aula 1 - O que é JavaScript?", conteudo: "JavaScript é a linguagem de programação usada para dar interatividade a páginas web.", video: "js1.mp4" },
+      { titulo: "Aula 2 - Como usar JavaScript", conteudo: "Use a tag <script> no HTML ou arquivos externos .js.", video: "js2.mp4" },
+      { titulo: "Aula 3 - Variáveis", conteudo: "Use let, const e var para criar variáveis.", video: "js3.mp4" },
+      { titulo: "Aula 4 - Funções", conteudo: "Funções são blocos de código que podem ser reutilizados. Ex: function minhaFuncao() {}", video: "js4.mp4" },
+      { titulo: "Aula 5 - DOM e eventos", conteudo: "Use document.querySelector e eventos como onclick para interagir com a página.", video: "js5.mp4" },
+      { titulo: "Aula 6 - Finalização", conteudo: "Pronto, agora você vai colocar mão na massa.", video: "js6.mp4" }
     ];
 
-    let aulaAtual = parseInt(localStorage.getItem("progressoJS") || 0);
+    let aulaAtual = parseInt(localStorage.getItem("progressoJS") || "0", 10);
+
+    const tituloEl = document.getElementById("tituloAula");
+    const conteudoEl = document.getElementById("conteudoAula");
+    const progressoBar = document.getElementById("progressoBar");
+    const videoEl = document.getElementById("videoAula");
+    const srcVideoEl = document.getElementById("srcVideo");
 
     function carregarAula() {
+      // Clamp de segurança
+      if (aulaAtual < 0) aulaAtual = 0;
+
       if (aulaAtual >= aulas.length) {
-        document.getElementById("aulaBox").innerHTML = "<h2>Curso concluído! ✅</h2><p>Parabéns, você terminou!</p>";
+        // Curso concluído
+        tituloEl.textContent = "Curso concluído! ✅";
+        conteudoEl.innerHTML = "Parabéns, você terminou!";
+        videoEl.style.display = "none"; // esconde vídeo ao concluir
+        atualizarProgresso(100);
+        return;
+      }
+
+      const aula = aulas[aulaAtual];
+
+      // Texto
+      tituloEl.textContent = aula.titulo;
+      conteudoEl.textContent = aula.conteudo;
+
+      // Progresso (antes da última ficar 100%)
+      atualizarProgresso((aulaAtual / aulas.length) * 100);
+
+      // Vídeo da aula (se tiver arquivo)
+      if (aula.video) {
+        srcVideoEl.src = aula.video;   // caminho do arquivo .mp4
+        videoEl.style.display = "block";
+        videoEl.load();
+        // opcional: videoEl.play(); (autoplay pode ser bloqueado pelo navegador)
       } else {
-        document.getElementById("tituloAula").textContent = aulas[aulaAtual].titulo;
-        document.getElementById("conteudoAula").textContent = aulas[aulaAtual].conteudo;
+        videoEl.style.display = "none";
+        srcVideoEl.src = "";
       }
     }
 
     function proximaAula() {
-      aulaAtual++;
-      localStorage.setItem("progressoJS", aulaAtual);
+      if (aulaAtual < aulas.length) {
+        aulaAtual++;
+        localStorage.setItem("progressoJS", String(aulaAtual));
+        carregarAula();
+      }
+    }
+
+    function reiniciarCurso() {
+      aulaAtual = 0;
+      localStorage.setItem("progressoJS", "0");
       carregarAula();
+      // Reseta vídeo
+      srcVideoEl.src = "";
+      videoEl.style.display = "none";
+    }
+
+    function atualizarProgresso(percent) {
+      progressoBar.style.width = Math.min(100, Math.max(0, percent)) + "%";
     }
 
     carregarAula();
