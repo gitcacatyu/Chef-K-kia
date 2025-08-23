@@ -1,114 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Receitas</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receitas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      text-align: center;
+    }
 
-        body{
-            font: normal 25px arial;
-            margin: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 50px;
-        }
-        button{
-            background-color: rgb(158, 157, 157);
-            border-radius: 25px;
-            font: normal 25px arial;
-        }
-        button:hover{
-          background-color: palevioletred;
-          cursor: pointer;
-        }
-    </style>
+    h1 {
+      font-size: 2rem;
+    }
+
+    h4 {
+      max-width: 500px;
+      line-height: 1.4;
+    }
+
+    button {
+      background-color: rgb(158, 157, 157);
+      border-radius: 15px;
+      font-size: 20px;
+      padding: 10px 20px;
+      border: none;
+    }
+
+    button:hover {
+      background-color: palevioletred;
+      cursor: pointer;
+    }
+
+    #donut {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: pink;
+      margin-top: 10px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+      body {
+        margin: 10px;
+        font-size: 16px;
+        gap: 20px;
+      }
+
+      h4 {
+        font-size: 16px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 8px 16px;
+      }
+
+      #donut {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
 </head>
 <body>
-      <h1>Receitas</h1>
-<br>
-<h4>🍫 Receita: Brigadeiro
-       Ingredientes:
+  <h1>Receitas</h1>
 
-         1    lata de leite condensado
+  <h4>🍫 Receita: Brigadeiro<br><br>
+    Ingredientes:<br>
+    1 lata de leite condensado<br>
+    1 colher de manteiga<br>
+    4 colheres de chocolate em pó<br><br>
+    <strong>Modo de preparo:</strong><br>
+    Mexa tudo em fogo baixo até desgrudar da panela. Enrole com granulado!
+  </h4>
 
-         1 colher de manteiga
-
-           4 colheres de chocolate em pó
-
-          Modo de preparo:
-          Mexa tudo em fogo baixo até desgrudar da panela. Enrole com granulado!
-
-</h4>
   <h2>Contador de Brigadeiros</h2>
-<button onclick="fazerBrigadeiro()">Fazer brigadeiro</button>
-<p>Você já fez <span id="contador">0</span> brigadeiros!</p>
-<h3>Código</h3>
-      <h4> let total = 0; <br>
-         function fazerBrigadeiro() {
-          total++; <br>
-             document.getElementById("contador").textContent = total;   <br>
-       }</h4>
-<script>
-  let total = 0;
-  function fazerBrigadeiro() {
-    total++;
-    document.getElementById("contador").textContent = total;
-  }
-</script>
+  <button onclick="fazerBrigadeiro()">Fazer brigadeiro</button>
+  <p>Você já fez <span id="contador">0</span> brigadeiros!</p>
 
-<br>
+  <h3>Código</h3>
+  <h4>
+    let total = 0;<br>
+    function fazerBrigadeiro() {<br>
+    total++;<br>
+    document.getElementById("contador").textContent = total;<br>
+    }
+  </h4>
 
-<h4>🍩 Receita: Donut de Baunilha com Cobertura Rosa
-Ingredientes:
+  <h4>🍩 Receita: Donut de Baunilha com Cobertura Rosa<br><br>
+    Ingredientes:<br>
+    2 xícaras de farinha de trigo<br>
+    1/2 xícara de açúcar<br>
+    1 colher de chá de fermento<br>
+    1/2 xícara de leite<br>
+    2 ovos<br>
+    2 colheres de manteiga<br>
+    Corante rosa + confeitos<br><br>
+    <strong>Modo de preparo:</strong><br>
+    Mistura tudo até virar uma massa linda.<br>
+    Assa no forno até dourar.<br>
+    Cobertura rosa por cima + confeitos.
+  </h4>
 
-2 xícaras de farinha de trigo
+  <h2>Personalize sua cobertura!</h2>
+  <input type="color" id="colorPicker">
+  <div id="donut"></div>
 
-1/2 xícara de açúcar
-
-1 colher de chá de fermento
-
-1/2 xícara de leite
-
-2 ovos
-
-2 colheres de manteiga
-
-Corante rosa + confeitos
-
-Modo de preparo:
-
-Mistura tudo até virar uma massa linda.
-
-Assa no forno até dourar.
-
-Cobertura rosa por cima + confeitos.
-
-E tá pronto o docinho da Chef Kákia!</h4>
-
-<h2>Personalize sua cobertura!</h2>
-<input type="color" id="colorPicker">
-<div id="donut" style="width: 150px; height: 150px; border-radius: 50%; background-color: pink; margin-top: 10px;"></div>
-<h3>Código</h3>
-<h4>const picker = document.getElementById("colorPicker");<br>
-  const donut = document.getElementById("donut");<br>
-<br>
-  picker.addEventListener("input", () => { <br>
+  <h3>Código</h3>
+  <h4>
+    const picker = document.getElementById("colorPicker");<br>
+    const donut = document.getElementById("donut");<br><br>
+    picker.addEventListener("input", () => {<br>
     donut.style.backgroundColor = picker.value;<br>
-  });<br> <br>
-</script>
-<script>
-  const picker = document.getElementById("colorPicker");
-  const donut = document.getElementById("donut");
+    });
+  </h4>
 
-  picker.addEventListener("input", () => {
-    donut.style.backgroundColor = picker.value;
-  });
-</script>
-<button onclick="location.href='min.html'">Jogar Ganhar CUPS</button>
+  <button onclick="location.href='min.html'">Jogar Ganhar CUPS</button>
 
+  <script>
+    let total = 0;
+    function fazerBrigadeiro() {
+      total++;
+      document.getElementById("contador").textContent = total;
+    }
+
+    const picker = document.getElementById("colorPicker");
+    const donut = document.getElementById("donut");
+
+    picker.addEventListener("input", () => {
+      donut.style.backgroundColor = picker.value;
+    });
+  </script>
 </body>
 </html>

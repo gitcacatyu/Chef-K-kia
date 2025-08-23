@@ -5,7 +5,7 @@ const receitasCompradasKey = "chefReceitas";
 
 // Moeda inicial
 if (!localStorage.getItem(CUPS_KEY)) {
-  localStorage.setItem(CUPS_KEY, "10"); // Começa com 10 CUPS
+  localStorage.setItem(CUPS_KEY, "0"); // Começa com 10 CUPS
 }
 
 function pegarCups() {
