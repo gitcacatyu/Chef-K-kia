@@ -19,29 +19,42 @@
     h1 {
         font-size: 50px;
         color: #333;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     #cupValor {
         font-size: 30px;
         font-weight: bold;
         color: #ffd700;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
     }
 
-    #superCups {
-        padding: 20px 40px;
+    #jogadasRestantes {
+        font-size: 22px;
+        color: #222;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        padding: 15px 30px;
         font-size: 24px;
         background-color: gold;
         border: 3px solid #333;
         border-radius: 15px;
         cursor: pointer;
         transition: transform 0.2s, box-shadow 0.2s;
+        margin: 10px;
     }
 
-    #superCups:hover {
+    .btn:hover {
         transform: scale(1.1);
         box-shadow: 0 0 20px #00ff00;
+    }
+
+    #comprarJogadas {
+        background-color: #ff6ea8;
+        color: #fff;
+        font-size: 22px;
     }
 </style>
 </head>
@@ -49,22 +62,64 @@
 
 <h1>SuperCUPS Turbo 💰</h1>
 <p>Seu saldo: <span id="cupValor">0</span> CUPS</p>
-<button id="superCups">💸 +SuperCUPS</button>
+<p id="jogadasRestantes">Jogadas restantes: 0</p>
+<button id="superCups" class="btn">💸 +SuperCUPS</button>
+<button id="comprarJogadas" class="btn">Comprar +5 jogadas (50 QUADRILHÕES)</button>
 
 <script>
-// Pega o elemento do display
+// Pega os elementos
 const cupDisplay = document.getElementById('cupValor');
+const jogadasDisplay = document.getElementById('jogadasRestantes');
 const btn = document.getElementById('superCups');
+const btnComprar = document.getElementById('comprarJogadas');
 
-// Inicializa moedas do localStorage
-let moedas = BigInt(localStorage.getItem('moedas') || '100');
-cupDisplay.innerText = moedas.toString();
+// Inicializa CUPS e jogadas do localStorage
+let cups = BigInt(localStorage.getItem('cups') || '100');
+let jogadas = parseInt(localStorage.getItem('jogadas') || '3');
 
+cupDisplay.innerText = cups.toString();
+jogadasDisplay.innerText = `Jogadas restantes: ${jogadas}`;
+
+// Função principal do SuperCUPS
 btn.addEventListener('click', () => {
+    if (jogadas <= 0) {
+        alert("Você não tem jogadas disponíveis! Compre mais para continuar.");
+        return;
+    }
+
     // Adiciona super mega CUPS
-    moedas += BigInt('1000000000000000000000000000000000000000000000');
-    localStorage.setItem('moedas', moedas.toString());
-    cupDisplay.innerText = moedas.toString();
+    cups += BigInt('10000000000000000000000'); // 10 QUINTILHÕES
+    jogadas--; // Consome uma jogada
+
+    // Atualiza armazenamento
+    localStorage.setItem('cups', cups.toString());
+    localStorage.setItem('jogadas', jogadas.toString());
+
+    // Atualiza na tela
+    cupDisplay.innerText = cups.toString();
+    jogadasDisplay.innerText = `Jogadas restantes: ${jogadas}`;
+});
+
+// Botão para comprar mais jogadas
+btnComprar.addEventListener('click', () => {
+    const preco = BigInt('50000000000000000'); // 50 QUADRILHÕES
+
+    if (cups >= preco) {
+        cups -= preco;
+        jogadas += 5;
+
+        // Salva
+        localStorage.setItem('cups', cups.toString());
+        localStorage.setItem('jogadas', jogadas.toString());
+
+        // Atualiza tela
+        cupDisplay.innerText = cups.toString();
+        jogadasDisplay.innerText = `Jogadas restantes: ${jogadas}`;
+
+        alert("Você comprou +5 jogadas!");
+    } else {
+        alert("Você não tem CUPS suficientes para comprar mais jogadas!");
+    }
 });
 </script>
 

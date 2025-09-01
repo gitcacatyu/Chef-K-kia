@@ -157,6 +157,7 @@ button:hover {
     </style>
 </head>
 <body>
+
     <h2>Aposte seus CUPS!</h2>
 <p>Você tem <span id="cupValor">100</span> CUPS na caixinha!</p>
 
@@ -167,6 +168,29 @@ button:hover {
 <button onclick="apostar()">Apostar!</button>
 <h2 id="cupDisplay">Ꞓ 0</h2>
 <button onclick="iniciarMinijogo()">Ganhar CUPS (Minijogo)</button>
+
+<!-- Adicione isso dentro do <body>, logo depois do h2 e antes do script -->
+<div id="resultadoImagem" style="
+  display:none; 
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  background:#5b2a1f;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.5);
+  z-index:9999;
+">
+  <h1 style="font-size:28px;">VOCÊ GANHOU</h1>
+  <h2 id="resultadoValor" style="font-size:48px; color:#ff6ea8;">000000</h2>
+  <h3 style="font-size:24px;">CUPS</h3>
+</div>
+
+
+
 <script>
 let moedas = parseInt(localStorage.getItem("moedas") || "1000000000");
 document.getElementById("cupValor").innerText = moedas;
@@ -244,15 +268,15 @@ document.getElementById("cupValor").innerText = cups;
 function apostar() {
   const aposta = parseInt(document.getElementById("aposta").value);
   if (!aposta || aposta <= 0) {
-    alert("Digite um valor válido!");
+    mostrarMensagem("Digite um valor válido!", false);
     return;
   }
   if (aposta > cups) {
-    alert("Você não tem CUPS suficientes!");
+    mostrarMensagem("Você não tem CUPS suficientes!", false);
     return;
   }
 
-  // Subtrai a aposta primeiro
+  // Subtrai a aposta
   cups -= aposta;
 
   const resultado = Math.floor(Math.random() * 4);
@@ -261,16 +285,38 @@ function apostar() {
   if (resultado === escolhaUsuario) {
     const ganho = aposta * 4;
     cups += ganho;
-    alert("Parabéns! Você ganhou " + ganho + " CUPS!");
+    mostrarMensagem(`Você ganhou ${ganho} CUPS!`, true, ganho);
   } else {
-    alert("Que azar! Você perdeu " + aposta + " CUPS!");
+    mostrarMensagem(`Você perdeu ${aposta} CUPS!`, false, aposta);
   }
 
   localStorage.setItem("cups", cups);
   atualizarDisplay();
 }
 
-let autoInterval;
+function mostrarMensagem(texto, ganhou, valor) {
+  const box = document.getElementById("resultadoImagem");
+  const valorTexto = document.getElementById("resultadoValor");
+  
+  if (ganhou) {
+    box.querySelector("h1").innerText = "VOCÊ GANHOU";
+    valorTexto.innerText = valor.toString().padStart(6, '0');
+    valorTexto.style.color = "#ff6ea8";
+    box.style.background = "#5b2a1f";
+  } else {
+    box.querySelector("h1").innerText = "VOCÊ PERDEU";
+    valorTexto.innerText = valor.toString().padStart(6, '0');
+    valorTexto.style.color = "#ff0000";
+    box.style.background = "#330000";
+  }
+
+  box.style.display = "block";
+
+  // Remove após 3 segundos
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 3000);
+}
 
 function autoApostar() {
   if(autoInterval) return;
